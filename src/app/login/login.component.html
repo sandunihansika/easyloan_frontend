@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, height=device-height,initial-scale=1">
+</head>
+
+<body>
+   
+
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="../../assets/tea.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="../../assets/cape-cinnamon-experience-1.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item ">
+                <img src="../../assets/paddy harvest.JPG" class="d-block w-100" alt="...">
+            </div>
+ 
+            <nav class="navbar navbar-expand-lg fixed-top navbar-light" style="background-color: rgb(189, 233, 177); opacity: 0.5">
+                <div>
+                    <h2 ><b>EASY LOAN</b> </h2> 
+                    <h6 >Micro Finance Transaction and Management System</h6>
+                    
+                </div>
+          
+            </nav>
+            <form class="loginForm" >
+                <div class="card">
+                    <h5 class="card-header">Login</h5>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="userName">Username</label>
+                            <input type="text" class="form-control" name="email_adress" [(ngModel)]="credentials.email_adress">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password"  class="form-control" name="e_password" [(ngModel)]="credentials.e_password">
+                        </div>
+                    </div>
+                    <a style="color:rgb(82, 100, 216); margin-bottom: 10px; text-decoration: underline; font-weight: bold; margin-left: 195px;"  (click)='pwdHint()' data-toggle="modal" data-target="#forgotpassword">Password Hint</a>
+                    <div class="card-footer text-muted">
+                        <button class="btn btn-primary float-right" type="button" (click)="login()">Login</button>
+                    </div>
+
+                    
+                </div>
+                <button type="button" class="btn btn-primary col"  *ngIf='load==true' disabled>
+                    <span class="spinner-border spinner-border-sm"  mode='indeterminate'></span> Logging...
+                </button>
+            </form>
+        </div>
+      </div>
+
+    
+      <!-- Modal -->
+      <div class="modal fade" id="forgotpassword" tabindex="-1" role="dialog" aria-labelledby="forgotpassword" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="forgotpassword">Password Hint</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <div class="form-group">
+                          <label class="control-label">{{hint.password_hint}}</label>
+                         
+                        </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary"  data-dismiss="modal">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <script>
+          $('#carouselExampleSlidesOnly').carousel({
+              interval: 2     
+          });
+      </script>
+  </body>
+  </html>

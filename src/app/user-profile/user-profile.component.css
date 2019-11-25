@@ -1,0 +1,10 @@
+.container{
+    align-content: center;
+    height: 600px;
+    padding-left:100px;
+    width: 800x;
+    position: relative;
+    overflow-x:auto;
+    margin-top: 50px;
+  } 
+  

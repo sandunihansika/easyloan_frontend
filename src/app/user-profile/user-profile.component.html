@@ -1,0 +1,109 @@
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+          <br><br>
+            <div class="row">
+                <div class="col-sm-8"><h2><b>{{user.employee_name}}</b></h2></div>
+                
+            </div>
+        </div>
+        <form [formGroup]='imageForm'>
+      <div  style="margin-left: 350px">
+      <img src="http://localhost:3000/{{user?.employee_img}}" style="border-radius: 40%;height: 100px; width: 100px;"  *ngIf="!imgURL"><br>
+      <img [src]="imgURL" height="200" *ngIf="imgURL" style="border-radius: 40%;height: 100px; width: 100px;">
+      <br>
+      <input #file type="file" name="profile_image" accept="image/*" (change)="preview(file.files); onFileSelected($event)" formControlName='image'>
+     
+    </div>
+      </form>
+      <br>
+      <form #userUpdateForm="ngForm" >
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>Employee Id</th>
+            <td>{{user.employee_no}}</td>
+          </tr>
+          <tr>
+            <th>NIC Number</th>
+            <td>{{user.nic_no }}</td>
+            
+          </tr>
+          <tr>
+              <th>Address</th>
+              <td><textarea  name="address" [(ngModel)]="user.address" required #address="ngModel"  [class.is-invalid]="address"></textarea></td>
+              <td><small class="text-danger" [class.d-none]="address.valid"> *Address is required</small></td>
+            </tr>
+            <tr>
+                <th>Date of Birth</th>
+                <td>{{user.birthdate}}</td>
+                <th>Gender</th>
+                <td>{{user.gender}}</td>
+                <td></td>
+              </tr>
+              <br>
+              <tr>
+                  <th scope="row">Contact Number</th>
+                  <td><input type="text"  name="tp_no" pattern="^\d{10}$" [(ngModel)]="user.tp_no" #tp_no="ngModel"  [class.is-invalid]="tp_no.invalid" required > </td>
+                  <td><small class="text-danger" [class.d-none]="tp_no.valid"> *Contact number should contain 10 digits</small></td>
+
+                 <th scope="row">Email Address</th>
+                 <td><textarea  name="email_adress" [(ngModel)]="user.email_adress" #email_adress="ngModel"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  [class.is-invalid]="email_adress.invalid" required></textarea></td>
+                 <td><small class="text-danger" [class.d-none]="email_adress.valid"> *Valid email address required</small></td>
+                </tr>
+                  
+                  <tr>
+                   <th scope="row">EPF Number</th>
+                   <td><input type="text"   name="epf_no" [(ngModel)]="user.epf_no"  #epf_no="ngModel"  [class.is-invalid]="epf_no.invalid" required > </td>
+                   <td><small class="text-danger" [class.d-none]="epf_no.valid"> *EPF number is required</small></td>
+                   <th scope="row">ETF Number</th>
+                   <td><input type="text"   name="etf_no" [(ngModel)]="user.etf_no"  #etf_no="ngModel"  [class.is-invalid]="etf_no.invalid" required > </td>
+                   <td><small class="text-danger" [class.d-none]="etf_no.valid"> *ETF number is required</small></td>
+                   </tr>
+
+                   <tr> 
+                      <th scope="row" (click)="changepwd()"  style="color:rgb(82, 100, 216); margin-bottom: 10px; text-decoration: underline; font-weight: bold;">Change the password</th>
+                  </tr>
+                 
+        </tbody>
+      </table>
+      <table class="table" *ngIf="pwdChange">
+        <tbody>
+              
+            <tr>
+                <th scope="row">Current Password</th>
+                <td><input type="password"  name="e_password" [(ngModel)]="user.e_password"   required #e_password="ngModel"  [class.is-invalid]="e_password.invalid&&e_password.touched"></td> 
+                <td><small class="text-danger" [class.d-none]="e_password.valid||e_password.untouched"> *current password is required</small></td>
+                
+              </tr>
+
+            <tr>
+            <th scope="row">New Password</th>
+            <td><input type="password"  name="new_password" [(ngModel)]="sendingData.new_password" pattern='(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}' required #new_password="ngModel"  [class.is-invalid]="new_password.invalid&&new_password.touched"></td> 
+            <td><small class="text-danger" [class.d-none]="new_password.valid||new_password.untouched"> *More than 8 characters with numbers, upper case letters,lowercase letters,special characters required</small></td>
+            
+            <th scope="row">New Password Confirmation</th>
+          
+            <td><input type="password"  name="confirmation" [(ngModel)]="confirm" > 
+            <small class="text-danger" *ngIf="(confirm!=sendingData.new_password)&&(confirm!=null)"> *Does not match with the password</small>
+          </td>
+          
+            
+          </tr>
+          <tr>
+            
+            <th scope="row">New Password Hint</th>
+             <td><input type="text"  name="new_hint" [(ngModel)]="sendingData.new_hint" ></td>
+           
+          </tr>
+        </tbody>
+      </table>
+      <div class="modal-footer">
+          <button  type="button" class="btn btn-success" [disabled]="userUpdateForm.form.invalid" (click)="update()">Update</button>
+          <button type="button" class="btn btn-dark" (click)="back()">Back</button>
+         
+      
+        </div>
+      </form>
+      </div>
+  </div>

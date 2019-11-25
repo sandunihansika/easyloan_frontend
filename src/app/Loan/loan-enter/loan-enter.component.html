@@ -1,0 +1,108 @@
+  <div class="container">
+    
+
+      <div class="row">
+        <div class="col-md-10 mt-5 mx-auto border border-info rounded" style="margin-bottom: 5%;">
+         <div>
+              <div class="card-block">
+    
+            <h3 for="h3 mb-3 font-weight-high text-white"><b>Loan Application</b></h3>
+            <br>
+            <form #loanForm="ngForm">  
+                <div class="form-row">
+                    <label class="control-label col-md-4">Customer ID</label>
+                    <div class="col-md-4">
+                   <input type="text" class="form-control" (keyup.enter)='search()' placeholder="customer_id" name="idToSearch" [(ngModel)]="idToSearch.customer_id">
+                   </div>
+            
+                </div>
+            <br>
+            <div *ngIf="customerDetails!=null">
+                <div class="form-row">
+                    <label class="control-label col-md-4">Customer Name</label>
+                    <div class="col-md-8">
+                     <label>{{customerDetails.customer_name}}</label>
+                    </div>
+               </div>
+               <br>
+               <div class="form-row">
+                  <label class="control-label col-md-4">Customer Age</label>
+                  <div class="col-md-8">
+                   <label>{{customerDetails.age}}</label>
+                  </div>
+             </div>
+             <br>
+              <div class="form-row">
+                  <label class="control-label col-md-4">Center Number</label>
+                  <div class="col-md-8">
+                   <label>{{customerDetails.center_no}}</label>
+                  </div> 
+              </div>
+              <br>
+                <div class="form-row">
+                    <label class="control-label col-md-4">Group Number</label>
+                    <div class="col-md-8">
+                     <label>{{customerDetails.group_no}}</label>
+                     </div>
+              </div>
+              <br>
+  
+            <div class="form-row">
+                <label class="control-label col-md-4">Guardian Name</label>
+                <div class="col-md-8">
+                 <label>{{customerDetails.guardian_name}}</label>
+                 </div>
+              </div>
+              <br>
+              <div class="form-row">
+                
+                  <label class="control-label col-md-4">Loan Type</label>
+                  <div class="col-md-4">
+                      <select class="custom-select" name="loan_type" [(ngModel)]="credentials.loan_index">
+                          <option selected>-select one-</option>
+                          <option value="{{loantype.loan_index}}" *ngFor="let loantype of loantypes" >{{ loantype.loan_index }} - {{loantype.amount}}</option>
+                        </select>
+                        
+                  </div>
+                  
+                 
+              </div>
+              <br>
+              <div class="form-row">
+                  <label class="control-label col-md-4">Due Start Date</label>
+                  <div class="col-md-4">
+                      <input type="date" class="form-control" name="due_start_date" [(ngModel)]="credentials.due_start_date">
+                   </div>
+            </div>
+            <br>
+              
+              <div class="form-row">
+                  <label  class="control-label col-md-4">Guaranter</label>
+                      <div class="col-md-6">
+                          <select class="custom-select" name="Guaranter" [(ngModel)]="credentials.guarenter_id">
+                              <option selected>-select one-</option>
+                              <option value="{{grnt.customer_id}}" *ngFor="let grnt of guaranter" >{{ grnt.customer_id }} - {{grnt.customer_name}}</option>
+                            </select>
+                          
+                      </div>
+                     
+                    </div>
+              
+                    <div class="modal-footer">
+                        <button  type="button" (click)='register()' class="btn btn-success">Enter</button>
+                        <button  type="button" class="btn btn-dark" (click)="reset(loanForm)">Cancel</button>
+                    </div>
+            </div>
+           
+                </form>
+                 </div>
+              </div>
+         
+          <br>
+         
+        </div>
+      </div>
+    </div>
+
+    
+  

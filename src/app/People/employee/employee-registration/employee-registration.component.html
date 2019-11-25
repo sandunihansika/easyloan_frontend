@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <div class="container">
+        
+            <div class="col-md-10 mt-5 mx-auto border border-info rounded" style="margin-bottom: 5%;">
+             <br><br>
+                          <form #empForm="ngForm" (submit)="registerEmployee()">
+                               <div style="margin-left: 350px">
+                                    <img src="../../../../assets/uploadprof.jpg" style="border-radius: 40%;height: 100px; width: 100px;" *ngIf="!imgURL" >
+                                    <img [src]="imgURL" height="200" *ngIf="imgURL" style="border-radius: 40%;height: 100px; width: 100px;">
+                                  <input  #file type="file" name="profile_image" accept="image/*" (change)="preview(file.files);onFileSelected($event)" [(ngModel)]="credentials.employee_img" >    
+                               </div>
+                               
+                            <br>
+                              <div  class="form-row">
+                                  <label class="control-label col-md-4">Name</label>
+                                  <div class="col-md-8">
+                                      <input type="text"  required #employee_name="ngModel" placeholder="employee_name" [class.is-invalid]="employee_name.invalid && employee_name.touched" class="form-control" name="employee_name" [(ngModel)]="credentials.employee_name">
+                                      <div [hidden]="employee_name.valid ||employee_name.untouched" class="alert alert-danger">Name is required</div>
+                                  </div>
+                              </div>
+                              <br>
+                              <div class="form-row">
+                                <label class="control-label col-md-4">Gender</label>
+                               <div class="col-md-8">
+                                    <input type="radio"required #gender="ngModel" [class.is-invalid]="gender.invalid && gender.touched" name="gender" id="male" value="Male"   [(ngModel)]="credentials.gender" checked> Male  
+                                    <input type="radio" required #gender="ngModel" [class.is-invalid]="gender.invalid && gender.touched" name="gender" id="female" value="Female"[(ngModel)]="credentials.gender"> Female
+                                    <div [hidden]="gender.valid ||gender.untouched" class="alert alert-danger">Gender Must be Selected</div>
+                                </div> 
+                            </div>
+                            <br>
+                              <div class="form-row">
+                                  <label class="control-label col-md-4">Date of Birth</label>
+                                  <div class="col-md-8">
+                                      <input type="date"  required  #birthdate="ngModel" [class.is-invalid]="birthdate.invalid && birthdate.touched" class="form-control" name="birthdate" [(ngModel)]="credentials.birthdate">
+                                      <div [hidden]="birthdate.valid ||birthdate.untouched" class="alert alert-danger">Birthdate is required</div>
+                                  </div>
+                              </div>
+                              <br>
+                              <div  class="form-row">
+                                  <label class="control-label col-md-4">NIC Number</label>
+                                  <div class="col-md-8">
+                                      <input type="text" required #nic_no="ngModel" placeholder="nic_no" pattern="^(?:19|20)?\d{2}(?:[01235678]\d\d(?<!(?:000|500|36[7-9]|3[7-9]\d|86[7-9]|8[7-9]\d)))\d{4}(?:[vVxX])$" [class.is-invalid]="nic_no.invalid && nic_no.touched"class="form-control" name="nic_no" [(ngModel)]="credentials.nic_no">
+                                      <div [hidden]="nic_no.valid ||nic_no.untouched" class="alert alert-danger">Valid NIC is required</div>
+                                  </div>
+                              </div>
+                            
+                              <br>
+                              <div  class="form-row">
+                                  <label class="control-label col-md-4">Address</label>
+                                  <div class="col-md-8"> 
+                                    <textarea required #address="ngModel" placeholder="address" [class.is-invalid]="address.invalid && address.touched"class="form-control" name="address" [(ngModel)]="credentials.address"></textarea>
+                                      <div [hidden]="address.valid ||address.untouched" class="alert alert-danger">Address is required</div>
+                                  </div>
+                              </div>
+                              
+                              <br>
+                            <div class="form-row">
+                                 <label class="control-label col-md-4">Contact Number</label>
+                                      <div class="col-md-8">
+                                          <input type="text" pattern="^\d{10}$" #tp_no="ngModel" placeholder="telephone_no" [class.is-invalid]="tp_no.invalid && tp_no.touched"  class="form-control" name="tp_no" [(ngModel)]="credentials.tp_no">
+                                          <div [hidden]="tp_no.valid ||tp_no.untouched" class="alert alert-danger">Contact number should contains 10 digits</div>
+                                      </div>
+                                  </div>
+                                  <br>
+                                  <div class="form-row">
+                                    <label class="control-label col-md-4">Email Address</label>
+                                    <div class="col-md-8">
+                                         <input type="email"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  name="email_address" class="form-control" placeholder="email_address" required #email_adress="ngModel" [class.is-invalid]="email_adress.invalid && email_adress.touched" [(ngModel)]="credentials.email_adress">
+                                         <div [hidden]="email_adress.valid ||email_adress.untouched" class="alert alert-danger">Valid Email Address is required</div>
+                                    </div>
+                                </div>
+                                <br>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label class="control-label col-md-4">Employee Type</label>
+                                  <div class="col-md-8">
+                                  <select class="emp-select" required #employee_type="ngModel" name="employee_type" [class.is-invalid]="employee_type.invalid && employee_type.touched" [(ngModel)]="credentials.employee_type" class="form-control">
+                                    <option selected>-select a type-</option>
+                                    <option value="Manager">Manager</option>
+                                    <option value="Executive">Executive</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Cashier">Cashier</option>
+                                  </select>
+                                  <div [hidden]="employee_type.valid ||employee_type.untouched" class="alert alert-danger">Employee type is required</div>
+                                  </div>
+                              </div>
+  
+                              <div class="form-group col-md-6" *ngIf="credentials.employee_type=='Executive'">
+                                <label class="control-label col-md-4">Bike No</label>
+                                <div class="col-md-8">
+                                    <input type="text"  required #bike_no="ngModel" [class.is-invalid]="bike_no.invalid && bike_no.touched"  class="form-control" name="bike_no" [(ngModel)]="executiveData.bike_no">
+                                    <div [hidden]="bike_no.valid ||bike_no.untouched" class="alert alert-danger">Bike number should be entered</div>
+                                </div>
+                            </div>
+                              </div>
+                              <br>
+                              <div class="form-row">
+                              <div class="form-group col-md-6">
+                              <label class="control-label col-md-4">EPF No</label>
+                              <div class="col-md-8">
+                                  <input type="text"  required  #epf_no="ngModel" placeholder="epf_no" [class.is-invalid]="epf_no.invalid && epf_no.touched" class="form-control" name="epf_no" [(ngModel)]="credentials.epf_no">
+                                  <div [hidden]="epf_no.valid ||epf_no.untouched" class="alert alert-danger">EPF number is required</div>
+                              </div>
+                          </div>
+                          <div class="form-group col-md-6">
+                              <label class="control-label col-md-4">ETF No</label>
+                              <div class="col-md-8">
+                                  <input type="text" required #etf_no="ngModel" placeholder="etf_no" [class.is-invalid]="etf_no.invalid && etf_no.touched"class="form-control" name="etf_no" [(ngModel)]="credentials.etf_no">
+                                  <div [hidden]="etf_no.valid ||etf_no.untouched" class="alert alert-danger">ETF number is required</div>
+                              </div>
+                          </div>
+                          </div>
+                            
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label  class="control-label col-md-4">Password</label>
+                                <div class="col-md-8">
+                                    <input type="password" required #e_password="ngModel"  pattern='(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}'  placeholder="password" [class.is-invalid]="e_password.invalid && e_password.touched" class="form-control" name="e_password" [(ngModel)]="credentials.e_password">
+                                    <div [hidden]="e_password.valid ||e_password.untouched" class="alert alert-danger">More than 8 characters with numbers, upper case letters,lowercase letters,special characters required</div>
+
+                                </div>
+                            </div>
+          
+                            <div class="form-group col-md-6">
+                                <label class="control-label col-md-4">Password Confirmation</label>
+                                <div class="col-md-8">
+                                    <input type="password" placeholder="retype_password" #confirm="ngModel"  class="form-control" name="confirm" [(ngModel)]="confirmd">
+                                    <div *ngIf="(confirmd!=credentials.e_password)&&(confirmd!=null) " class="alert alert-danger">Does not match with the password</div>
+                                </div>
+                            </div>
+          
+                        </div>
+                        <div  class="form-row">
+                            <label  class="control-label col-md-4">Password Hint</label>
+                            <div class="col-md-8">
+                                    <input type="text" required placeholder="password_hint" name="password_hint" [class.is-invalid]="password_hint.invalid && password_hint.touched"  #password_hint="ngModel"  class="form-control" [(ngModel)]="credentials.password_hint">
+                                    <div [hidden]="password_hint.valid ||password_hint.untouched" class="alert alert-danger">Password Hint is required</div> 
+                            </div>
+                        </div>
+      
+            
+                             <div class="modal-footer">
+                                <button type="button" class="btn btn-dark" (click)="reset(empForm)" >Clear All</button>
+                                <button [disabled]="empForm.form.invalid" type="submit" class="btn btn-success">Register</button>
+            
+                              </div>
+
+                              
+                
+                          </form>
+                          </div>
+                        
+                          
+       
+
+         </div>
+
+    </body>
+</html>

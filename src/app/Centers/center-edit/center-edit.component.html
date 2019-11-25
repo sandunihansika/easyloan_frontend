@@ -1,0 +1,225 @@
+
+
+
+      
+<form *ngIf=!edited>
+
+    <div class="row">
+        
+      <div class="col-md-7 mt-5 mx-auto border border-info rounded" style="margin-bottom: 5%;">
+        
+
+            <div class="col-md-12" >
+                <div class="profile-content">
+                    <div class="table-wrapper" >
+                        <div class="table-title">
+                            <div class="row" >
+                              <div class="form-group col-md-5">
+                                <div class="col-sm-20" ><h4><b>Add extra group</b></h4></div>
+                              </div>
+                            </div>
+                              
+                               
+                                     <div class="row">
+                                      <div class="form-group col-md-5">
+                                        <label  class="mr-sm-2 font-weight-high text-black">Center No </label>
+                                        <input type="text" class="form-control" placeholder="location" name="location" [(ngModel)]="credentialsgroup.center_no">
+                                      </div>
+                      
+                                      <div class="form-group col-md-5">
+                                          <label  class="mr-sm-2 font-weight-high text-black">Group No</label>
+                                          <input type="text" class="form-control" placeholder="location" name="location" [(ngModel)]="credentialsgroup.group_no">
+                                        </div>
+                                        
+                                        <div class="form-group col-md-10">
+                                            <button class="  btn-primary font-weight-high text-white mr-sm-2  "  (click)="registerextragroup()">AddGroup</button>
+                                          
+                                            </div>
+                                        </div>
+
+                                        <br><br>
+                                        <div class="col-sm-20" ><h4><b>Change group</b></h4></div>
+                                       
+                                        <div class="row">
+                                          <div class="form-group col-md-5">
+                                            <label  class="mr-sm-2 font-weight-high text-black">Customer ID</label>
+                                            <input type="text" class="form-control" placeholder="location" name="location" [(ngModel)]="cusgroupchange.customer_id">
+                                          </div>
+                          
+                                          <div class="form-group col-md-5">
+                                              <label  class="mr-sm-2 font-weight-high text-black">Group No</label>
+                                              <input type="text" class="form-control" placeholder="location" name="location" [(ngModel)]="cusgroupchange.group_no">
+                                            </div>
+                                            
+                                            <div class="form-group col-md-10">
+                                                <button class="  btn-primary font-weight-high text-white mr-sm-2  "  (click)="updatecusgroup()">ChangeGroup</button>
+                                              
+                                                </div>
+                                                <br><br><br><br>
+                                          
+                                            </div>
+                                              <br>
+                                      
+
+                <table class="table table-striped table-hover table-bordered" id="myTable">
+                <thead >
+                    <tr>
+                        <th>Center_No</th>
+                        <th>Center_Name</th>
+                        <th>Center_leader_ID</th>
+                        <th>Executive_ID</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr *ngFor="let detail of centerredetails">    
+                         <td>{{detail?.center_no }} </td>
+                         <td>{{detail?.center_name }}</td>
+                         <td>{{detail?.center_leader_id }}</td>
+                         <td>{{detail?.executive_id }}</td>
+                         <td><button type="button" class="btn btn-success"><i class="far fa-edit" (click)="edit(detail)"></i></button></td>
+                         <td><button type="button" class="btn btn-danger"><i class="fas fa-trash" (click)="delete(detail.center_no)"></i></button></td>
+
+
+                      </tr>
+              </tbody>
+              </table>
+              </div>
+              </div>
+              </div>
+              </div>
+             
+            
+  
+        <br>
+       
+      </div>
+    </div>
+ 
+</form>
+<!--<form #centereditForm="ngForm"  *ngIf="edited" > 
+<div class="row">
+  <div class="col-md-4 mt-4 mx-auto border border-info rounded" style="margin-bottom: 5%;">
+    
+        <div class="card-block">
+            <br>
+      <h1 class="h3 mb-3 font-weight-high text-black"><b>Edit Center Details here</b></h1>
+      <br>
+
+      <div class="form-row">
+        <div class="form-group col-md-8">
+          <label  class="mr-sm-2 font-weight-high text-black"><h5><b>Center No {{selectedcenter?.center_no }} </b></h5> </label>
+        </div>
+     </div>
+
+      <div class="form-row">
+      <div class="form-group col-md-8">
+        <label  class="mr-sm-2 font-weight-high text-black"><b>Center Name</b> </label>
+        <input type="text" class="form-control" placeholder="center_name" name="center_name" [(ngModel)]="selectedcenter.center_name">
+      </div>
+
+      </div>
+
+      
+      
+        
+      <div class="form-row">
+          <div class="form-group col-md-8">
+            <label  class="mr-sm-2 font-weight-high text-black"><b>Location</b> </label>
+            <input type="text" class="form-control" placeholder="location" name="location" [(ngModel)]="selectedcenter.location">
+          </div>
+        </div>
+        
+          <div class="form-row">
+            <div class="form-group col-md-8">
+                <label class="mr-sm-2 font-weight-high text-black"><b>Center Leader</b> </label>
+                <input type="text" class="form-control" placeholder="leader_name" name="center_leader" [(ngModel)]="selectedcenter.center_leader_id">
+              </div>
+            </div>
+
+          <div class="form-row">
+              <div class="form-group col-md-8">
+                <label class="mr-sm-2 font-weight-high text-black"><b>Executive No</b> </label>
+                <input type="text" class="form-control" placeholder="executive_id" name="executive_id" [(ngModel)]="selectedcenter.executive_id">
+              </div>
+            </div>
+
+              
+
+            <br>
+            <div class="form-group">
+        <button class="btn  btn-primary font-weight-high text-white mr-sm-2  " (click)=update()>Register</button>
+        <button class="btn  btn-primary font-weight-high text-white mr-sm-2  " (click)=reload()>Reload</button>
+        <button class="btn  btn-primary font-weight-high text-white mr-sm-2  " (click)=reset(centereditForm)>Reset</button>
+        </div>
+        <br>
+        <br>
+
+        
+
+        </div>
+    
+    
+    <br>
+
+  </div>
+</div>
+</form>-->
+
+<div class="col-md-6 mt-5 mx-auto border border-info rounded" style="margin-bottom: 5%;">
+  <br>
+  <form #centereditForm="ngForm"  *ngIf="edited">
+      <h1 class="h3 mb-3 font-weight-high text-black"><b>Edit Center Details</b></h1>
+      <br>
+
+      <div class="form-row">
+          <div class="form-group col-md-8">
+            <label  class="mr-sm-2 font-weight-high text-black"><h5><b>Center No {{selectedcenter?.center_no }} </b></h5> </label>
+          </div>
+       </div>
+
+    <div class="form-row">
+          <label class="control-label col-md-3"><b>Center Name</b></label>
+          <div class="col-md-6">
+              <input type="text" placeholder="center_name"  class="form-control" name="center_name" [(ngModel)]="selectedcenter.center_name">
+              
+          </div>
+      </div>
+    <br>
+          <div class="form-row">
+          <label class="control-label col-md-3"><b>Location</b></label>
+          <div class="col-md-6">
+              <input type="text" placeholder="Location" class="form-control" name="location" [(ngModel)]="selectedcenter.location">
+         </div>
+      </div>
+      <br>
+      <div class="form-row">
+          <label class="control-label col-md-3"><b>Center Leader ID</b></label>
+          <div class="col-md-6">
+              <input type="text" placeholder="Center_Leader_ID"  class="form-control" name="center_leader_id" [(ngModel)]="selectedcenter.center_leader_id">
+              
+          </div>
+      </div>
+      <br>
+      <div class="form-row">
+          <label class="control-label col-md-3"><b>Executive ID</b></label>
+          <div class="col-md-6">
+              <input type="text" placeholder="Executive_ID"  class="form-control" name="executive_id" [(ngModel)]="selectedcenter.executive_id">
+              
+          </div>
+      </div>
+      <br>
+      
+     
+      
+
+      
+     <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)=update()>Update</button>
+        <button type="button" class="btn btn-success" (click)=reload()>Reload</button>
+        <button type="button" class="btn btn-dark" (click)=reset(centereditForm)>Clear All</button>
+     </div>
+     
+  </form>
+  </div>
+
+    

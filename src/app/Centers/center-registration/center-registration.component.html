@@ -1,0 +1,83 @@
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <div class="container">
+            
+            <div class="col-md-8 mt-5 mx-auto border border-info rounded" style="margin-bottom: 5%;">
+                          <br>
+                          <form #centerForm="ngForm">
+                              <h1 class="h3 mb-3 font-weight-high text-black"><b>Center Registration</b></h1>
+                              <br>
+                            <div class="form-row">
+                                  <label class="control-label col-md-2"><b>Center Name</b></label>
+                                  <div class="col-md-6">
+                                      <input type="text" placeholder="center_name" required #center_name="ngModel"  [class.is-invalid]="center_name.invalid && center_name.touched" class="form-control" name="center_name" [(ngModel)]="credentials.center_name">
+                                        <div [hidden]="center_name.valid ||center_name.untouched" class="alert alert-danger"> Center Name is required</div>
+                                  </div>
+                              </div>
+                            <br>
+                                  <div class="form-row">
+                                  <label class="control-label col-md-2"><b>Location</b></label>
+                                  <div class="col-md-6">
+                                      <input type="text" placeholder="Location" required  #location="ngModel" [class.is-invalid]="location.invalid && location.touched" class="form-control" name="location" [(ngModel)]="credentials.location">
+                                      <div [hidden]="location.valid ||location.untouched" class="alert alert-danger">Location is required</div>
+                                  </div>
+                              </div>
+                              <br>
+                              <div class="form-row">
+                                  <label class="control-label col-md-2"><b>Executive ID</b></label>
+                                  <div class="col-md-6">
+                                      <input type="text" placeholder="Executive_ID" required  #executive_id="ngModel" [class.is-invalid]="executive_id.invalid && executive_id.touched" class="form-control" name="executive_id" [(ngModel)]="credentials.executive_id">
+                                      <div [hidden]="executive_id.valid ||executive_id.untouched" class="alert alert-danger">Executive ID is required</div>
+                                  </div>
+                              </div>
+                              <br>
+
+                              <div class="form-row">
+                                <label class="control-label col-md-2"><b>Groups</b></label>
+                                <div class="col-md-6">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked11"  (change)="AddGroup($event,'1')">
+                                        <label class="custom-control-label" for="defaultUnchecked11"><b>1</b></label>
+                                    </div>
+                                    
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked12"  (change)="AddGroup($event,'2')">
+                                        <label class="custom-control-label" for="defaultUnchecked12"><b>2</b></label>
+                                    </div>
+                                    
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked13" (change)="AddGroup($event,'3')">
+                                        <label class="custom-control-label" for="defaultUnchecked13"><b>3</b></label>
+                                    </div>
+
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked14" (change)="AddGroup($event,'4')">
+                                        <label class="custom-control-label" for="defaultUnchecked14"><b>4</b></label>
+                                    </div>
+                  
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked15" (change)="AddGroup($event,'5')">
+                                        <label class="custom-control-label" for="defaultUnchecked15"><b>5</b></label>
+                                    </div>
+                                </div>
+                            </div>
+                              
+                             
+                      
+                             <div class="modal-footer">
+                                <button [disabled]="((centerForm.form.invalid)||(!toggleBool))" type="button" (click)="register()" class="btn btn-success">Register</button>
+                                <button type="button" class="btn btn-dark" (click)=reset(centerForm);reload()>Clear All</button>
+                             </div>
+                
+                          </form>
+                          </div>
+                        
+</div>
+    </body>
+</html>
+    
+

@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+    <div class="view" style="background-image: url('../../assets/HomeBack7.jpg'); background-repeat: no-repeat; background-size: cover; height:100%; background-position: center;">
+      <!-- Mask & flexbox options-->
+      <div class="mask rgba-gradient align-items-center">
+        <!-- Content -->
+        <div class="container">
+          <!--Grid row-->
+          <div class="row">
+            <!--Grid column-->
+            <div class="col-md-12 white-text text-center text-md-left mt-xl-5 mb-5 wow fadeInLeft" data-wow-delay="0.3s">
+              <h1 class="h1-responsive font-weight-bold mt-sm-5" style="color: black">"WE ARE COMMITED TO GIVE AN EXCELLENT SERVICE TO OUR CUSTOMERS"</h1>
+              <hr class="hr-light">
+              <h6 class="mb-4"></h6>
+              
+              <!-- <h2>{{ now | date:'MMMM d, y, h:mm:ss'}}</h2> -->
+            </div>
+            <br><br>
+            <div  class="buttons">
+                <button *ngIf="type.employee_type=='Admin'"  style="align-content: center"  type="button" class="btn btn-default btn-lg btn-block" routerLink="/nav/customer-register"> <i class="fas fa-user-plus"></i>   Add Customer</button>
+                <button  *ngIf="type.employee_type=='Cashier'"style="align-content: center"   type="button" class="btn btn-default btn-lg btn-block" routerLink="/nav/re-payment"> <i class="fas fa-dollar-sign"></i>   Add Installment</button>
+                <button *ngIf="type.employee_type=='Admin'" style="align-content: center"   type="button" class="btn btn-default btn-lg btn-block" routerLink="/nav/loan-enter"> <i class="fas fa-money-bill-alt"></i>   Add Loan</button>
+            </div>
+            
+          </div>
+          <!--Grid row-->
+        </div>
+        <br><br><br>
+        <div class="row justify-content-center">
+           
+                  <div class="container">
+                      <div class="bottom">
+                      <div class="row">
+              
+                    <div class="col-lg-4 col-md-4">
+                      <div class="folded-corner service_tab_1">
+                        <div class="text">
+                          <i class="fas fa-user-tie fa-5x "></i>
+                          
+                          <h1 class="item-title" *ngFor='let emp of Employees'>{{emp.emp_count}}+ <br>EMPLOYEES</h1>
+                        </div>
+                      </div>
+                      </div>
+                    <div class="col-lg-4 col-md-4 ">
+                      <div class="folded-corner service_tab_1">
+                        <div class="text">
+                          <i class="far fa-money-bill-alt fa-5x" ></i>
+                          <h1 class="item-title" *ngFor='let loan of Loans'>{{loan.loan_count}}+<br> LOANS</h1>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 ">
+                      <div class="folded-corner service_tab_1">
+                        <div class="text">
+                          <i class="fas fa-users fa-5x "></i>
+                          
+                              <h1 class="item-title" *ngFor='let cus of Customers'> {{cus.cus_count}}+ <br>CUSTOMERS</h1>
+                        
+                        </div>
+                      </div>
+                    </div>
+          
+                     </div>
+                     </div>
+          </div>  
+      </div>
+    
+      
+        <!-- Content -->
+      </div>
+      <!-- Mask & flexbox options-->
+    </div>
+    
+    
+</body>

@@ -1,0 +1,269 @@
+<div class="container">
+    <div class="row profile">
+  
+  
+  <div class="col-md-6">
+    <div class="profile-sidebar">
+        <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                          
+                        <div class="col-sm-9"><h2>Customer <b>Details</b></h2></div>
+                        <div>
+                      
+                        <button class="btn btn-secondary font-weight-high text-white mr-sm-2 " (click)=reload()><i class="fas">Reset</i></button>
+                      
+                      </div>
+                  </div>
+                        <br>
+                           <div class="form-group row col-md-8">
+                                  
+                                          <!--<div class="col-md-20 mt-4 mx-auto border border-info rounded" style="margin-bottom: 5%;">-->
+                               <label class="col-sm-5 col-form-label">Customer_ID</label>
+                           <div class="col-sm-6">
+                               
+                              <div class="search-box">
+                                      <i class="material-icons">&#xE8B6;</i>
+                                     <input type="text" class="form-control" name="search" (input)="search()" [(ngModel)]="searchText" autocomplete="off" placeholder="Search&hellip;"> 
+                                           
+                                  </div>
+                                  
+                                   </div>
+                                   <br> <br> <br>                            
+                                   
+  
+    <table class="table table-striped table-hover table-bordered" id="myTable" (submit)="register()">
+    <thead>
+        <tr>
+            <th>Customer ID</th>
+            <th>Center_no</th>
+            <th>Center_name</th>
+            <th>Group</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let x of customercenterdetailsUI; let i=index">
+      <tr >
+      
+              <td>{{x?.customer_id }}</td>
+              <td><button (click)="selected_center(x?.center.center_no);selected_customer(x?.customer_id)">{{x?.center.center_no }} </button></td>
+              <td>{{x?.center.center_name }}</td>
+          
+             <!--<td > <select class="custom-select"  name="group_no" [(ngModel)]="myData[i]" required >
+                  <option [value]=''selected >Select</option>
+                  <option *ngFor="let y of groupNo">{{y.group_no}} </option>
+              
+              </select></td>-->
+              <td > <input type="text"  style="width:100%;" name="group_no" [(ngModel)]="myData[i]" ></td>
+        
+    <!-- <td> <button style="float: right;" class="btn btn-primary btn-md"  (click)="register(myData[i])" type="submit">En</button></td>-->
+     <td><button type="button" class="btn btn-info"><i class="fas fa-check" (click)="register(myData[i],x?.customer_id)"></i></button></td>
+       </tr>
+       
+      
+  </tbody>
+  </table>
+  
+  
+  <div>
+  
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  
+  <div class="col-md-4" >
+    <div class="profile-content" *ngIf="tool">
+  
+  
+            <div class="table-wrapper"  >
+                <div class="table-title" >
+                  <div class="row" >
+                      <div class="col-sm-8"><h2>Center <b>Details</b></h2></div>
+                      <button type="button" class="btn btn-primary mr-sm-2 " (click)="count()"><i class="fas fa-list-ol"></i></button>
+                      </div>
+                      <br>
+                         <div class="form-group row col-md-12">
+                             
+                             <label class="col-sm-4 col-form-label">Group_no</label>
+                             
+                          
+                         <div class="col-sm-7">
+                              
+                            <div class="search-box">
+                                    <i class="material-icons">&#xE8B6;</i>
+                                   <input type="text" class="form-control" name="search2" (input)="search2()" [(ngModel)]="searchText2" autocomplete="off" placeholder="Search&hellip;"> 
+                                         
+                                
+                          </div>
+                         </div>
+                               
+     
+                   <br><br><br>      
+                    
+        
+  
+  <table class="table table-striped table-hover table-bordered" id="myTable" *ngIf="tool" >
+    <thead >
+        <tr>
+        <th>Groups</th>
+        <th>customers</th>
+       
+        </tr>
+    </thead>
+    <tbody *ngFor="let no of membersDictionaryUI">
+             <tr >    
+                  <td>{{no.key}} </td>
+                   <td>
+                   <div *ngFor="let memberVal of no.value">
+                           {{memberVal}}
+                  </div>
+                  </td>
+                  
+               </tr>
+  </tbody>
+  </table>
+  <!-- <button class="btn  btn-primary font-weight-high text-white mr-sm-2  "  (click)=count()>Count</button> -->
+  
+  
+  <!--<table class="table table-striped table-hover table-bordered" id="myTable" *ngIf="counted">
+          <thead >
+              <tr>
+                  <th>Group_No</th>
+                  <th> Count</th>
+              </tr>
+          </thead>
+          <tbody >
+              <tr *ngFor="let num of groupsDictionary">    
+                   <td>{{num.key}} </td>
+                   <td>
+                      <div *ngFor="let groupVal of num.value">{{groupVal}}</div>
+                   </td>
+                   </tr>
+        </tbody>
+        </table>-->
+       
+  
+  </div>
+  </div>
+  </div>
+  </div>
+  <div class="table-wrapper" *ngIf="counted" >
+          <div class="table-title" >
+            <div class="row" >
+                <div class="col-sm-8"><h2>Center <b>Details</b></h2></div>
+                <div class="input-group-btn"> 
+                      <button class="btn btn-info" type="submit" (click)="back()"> <i class="fas fa-redo-alt"></i></button> 
+               </div>
+                      </div>
+                      <br>
+                         <div class="form-group row col-md-12">
+                             
+                             <label class="col-sm-4 col-form-label">Group_no</label>
+                             
+                          
+                         <div class="col-sm-7">
+                              
+                            <div class="search-box">
+                                    <i class="material-icons">&#xE8B6;</i>
+                                   <input type="text" class="form-control" name="search2" (input)="search2()" [(ngModel)]="searchText2" autocomplete="off" placeholder="Search&hellip;"> 
+                                         
+                                
+                          </div>
+                         </div>
+                               
+     
+                   <br><br><br>   
+  <table class="table table-striped table-hover table-bordered" id="myTable" >
+          <thead >
+              <tr>
+                  <th>Group_No</th>
+                  <th> Count</th>
+              </tr>
+          </thead>
+          <tbody >
+              <tr *ngFor="let num of groupsDictionary">    
+                   <td>{{num.key}} </td>
+                   <td>
+                      <div *ngFor="let groupVal of num.value">{{groupVal}}</div>
+                   </td>
+                   </tr>
+        </tbody>
+        </table>
+      <!--  <div class="input-group-btn"> 
+              <button class="btn btn-info" type="submit" (click)="back()"> <i class="fas fa-redo-alt"></i></button> 
+       </div>-->
+  
+  </div>
+  </div>
+  </div>
+  </div>
+  
+  
+  <!--<div class="col-md-2" >
+          <div class="profile-content">
+              <div class="table-wrapper" >
+                  <div class="table-title">
+                      <div class="row" >
+                          <div class="col-sm-8" ><h2>Groups Details</h2></div>
+                         <br><br><br>      
+          <table class="table table-striped table-hover table-bordered" id="myTable">
+          <thead >
+              <tr>
+                  <th>Group_No</th>
+                  <th> Count</th>
+              </tr>
+          </thead>
+          <tbody >
+              <tr *ngFor="let num of groupsDictionary">    
+                   <td>{{num.key}} </td>
+                   <td>
+                      <div *ngFor="let groupVal of num.value">{{groupVal}}</div>
+                   </td>
+                   </tr>
+        </tbody>
+        </table>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>-->
+  
+        <div class="col-md-2" *ngIf="toolgroup">
+          <div class="profile-content">
+              <div class="table-wrapper" >
+                  <div class="table-title">
+                      <div class="row" >
+                              <div class="col-sm-8"><h2>Group <b>Details</b></h2></div>
+                      <br><br><br><br>
+                          <table class="table table-striped table-hover table-bordered" id="myTable">
+                              
+                              <thead >
+                                  <tr>
+                                  <th>Groups of center</th>
+                                  </tr>
+                              </thead>
+                              <tbody >
+                                  <!-- <div *ngIf="membersDictionary.length != 0"> -->
+                                       <tr *ngFor="let y of groupNo">    
+                                            <td>{{y.group_no}} </td>
+                                      </tr>
+                               </tbody>
+                               </table>
+                               
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  </div>
+  

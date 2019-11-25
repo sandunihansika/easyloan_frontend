@@ -1,0 +1,86 @@
+<div class="container">
+    <h2>Extra Payment</h2>
+    <form class="form-inline"  [formGroup]="filterForm" class="form-inline">
+        <!-- <div class="form-group row col-md-4">
+            <label class="my-3 mr-4" for="center">Center</label>
+            <select class="custom-select my-1 mr-sm-2" id="center" (change) = "onChange()" formControlName="center">
+                <option *ngFor="let cent of centers" [ngValue]="cent" [disabled] = "cent === centers[0]">{{cent}}</option>
+              </select>
+        </div> --> 
+        <div class="form-group row col-md-3"></div>
+        <div class="form-group row col-md-4">
+            <!-- <div class="dropdown">
+              <button class="btn  dropdown-toggle" style="border: 2px solid #e7e7e7;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filter By
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item">Member id</a>
+                <a class="dropdown-item">NIC</a>
+              </div>
+            </div> -->
+                <label class="my-3 mr-4 col-3 col-form-label d-inline" for="filter by">Filter By</label>
+                <select class="custom-select my-3 mr-sm-4 col-8 form-control d-inline"  id="inlineFormCustomSelectPref" formControlName = "sortType" (change) = "onChange()">
+                  <option selected [disabled]>Select</option>
+                  <option value="1" selected>Member id</option>
+                  <option value="2">NIC</option>
+                </select>
+        </div>
+        <div class="form-group row col-md-2">
+          <div class="form-group has-search">
+            <span class="fa fa-search form-control-feedback"></span>
+            <input style="margin-left: -10px;" type="text" class="form-control" placeholder="Search here" (input)="onChange()" [(ngModel)]="searchInput" formControlName = "searchSection">
+          </div>
+        </div>
+    </form>
+    <div class="bottomSection">
+      <form [formGroup]="amountForm">
+          <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Member id</th>
+                  <th scope="col">NIC</th>
+                  <th scope="col">Member name</th>
+                  <th scope="col">Loan No</th>
+                  <th scope="col">Last payment date</th>
+                  <th scope="col">Last payment</th>
+                  <th scope="col">Payment State</th>
+                  <th scope="col">Balance</th>
+                  <th scope="col">Amount</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let payment of bindToUiPayments;let i=index;">
+
+                  <td>{{payment.customer_id}}</td>
+                  <td>{{payment.customer?.nic_no}}</td>
+                  <td>{{payment.customer?.customer_name}}</td>
+                  <td>{{payment.loan_no}}</td>
+                  <td>{{payment.installments[0]?.payment_date}}</td>
+                  <td>
+                    <div *ngIf="payment.installments.length>0">{{payment.installments[0]?.amount.toFixed(2)}}</div>
+                    <ng-template #elseBlock>{{0}}</ng-template>
+                  </td>
+                  <td>{{payment.installments[0]?.payment_status}}</td>
+                  <!-- <td>0----0</td> -->
+                  <td>{{(payment.loan_type?.initial_fees - payment.installments[0]?.total_amount).toFixed(2)}}</td>
+                  <!-- <td><input type="number"></td> -->
+                  <td>
+                      <div>
+                        <input type="number"  formControlName="amountControl" [(ngModel)]="myData[i]"placeholder="xxxxxxxxx.xx">
+                      </div>
+                  </td>
+                  <div class="btn float-right btn-class" >
+                    <button type="button" class="btn btn-md saveBtn  d-inline" (click)="onSave(payment.loan_no, myData[i], payment.loan_type?.initial_fees - payment.installments[0]?.total_amount)" >
+                        <img class="imageSave" src="../../../assets/icons8-office-160.png" alt="save">
+                    </button>
+                    <button type="button"  class="btn btn-md cancelBtn  d-inline" (click)=" myData[i] = ''" >
+                        <img class="imageCancel" src="../../../assets/icons8-reset-48.png" alt="reset">
+                    </button>
+                   </div>
+                </tr>
+              </tbody>
+            </table>
+      </form>
+    </div>
+</div>

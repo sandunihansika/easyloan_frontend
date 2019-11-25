@@ -1,0 +1,267 @@
+
+<div class="container">
+  <div class="table-wrapper" *ngIf="!edit&&!view">
+    <div class="table-title">
+       <div class="row">
+          <div class="col-sm-8"><h2><b>Employee Details</b></h2></div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col">
+          <a *ngIf="type.employee_type=='Admin'" href="nav/employee-register" class="btn btn-lg btn-primary"><i class="fas fa-user-plus"></i>  Add Employee</a>
+      </div>
+      <label for="filter by" class="col-sm-1 col-form-label">filter by: </label>
+          <div>
+                  <select class="custom-select my-2 mr-sm-3" id="inlineFormCustomSelectPref" name="search" (change)="onChange()" [(ngModel)]="filterValue">
+                      <option [ngValue]="1">Employee ID</option>
+                      <option [ngValue]="2">Employee Type</option>
+                    </select>
+          </div>
+         
+      <div class="col-sm-4">
+        <div class="search-box">
+                  <i class="material-icons">&#xE8B6;</i>
+                 <input type="text" class="form-control" name="search" [disabled]="filterValue==null" [(ngModel)]="searchText" (input)="onChange()" autocomplete="off" placeholder="Search&hellip;">
+              </div>
+          </div>
+        
+      </div>
+
+<br><br>
+<div style="overflow-y:auto;">
+<table id="dt-more-columns" class="table table-striped table-hover" cellspacing="0" width="100%">
+  <thead class="thead-dark">
+    <tr>
+      <th class="th-sm">ID
+
+      </th>
+      <th class="th-sm">Name
+
+      </th>
+      <th class="th-sm">Gender
+
+      </th>
+      <th class="th-sm">Type
+
+      </th>
+      <th class="th-sm">Address
+
+      </th>
+      <th class="th-sm">Contact No
+
+      </th>
+  
+    </tr>
+  </thead>
+
+<tbody *ngFor="let employee of empdetailsUI">
+        <tr *ngIf="employee.employee_no!=type.employee_no">
+                <td>{{employee?.employee_no }}</td>
+                <td>{{employee?.employee_name }}</td>
+                <td>{{employee?.gender }}</td>
+                <td>{{employee?.employee_type }}</td>
+                <td>{{employee?.address }}</td>
+                <td>{{employee?.tp_no }}</td>
+                <td><button type="button" class="btn btn-info"><i class="far fa-address-card" (click)="viewEmp(employee)"></i></button> </td>
+                <td><button  type="button" class="btn btn-success"  *ngIf="type.employee_type=='Admin'"><i class="far fa-edit"  (click)="editEmp(employee)"></i></button></td>
+                <!-- <td><button  type="button" class="btn btn-danger">  <i class="fa fa-trash"  (click)="delete(employee.employee_no)" ></i></button></td>    -->       
+        </tr>
+   </tbody>
+ 
+
+ 
+</table>
+</div>
+</div>
+
+<div class="table-wrapper" *ngIf="edit">
+  <div class="table-title">
+      <div class="row">
+          <div class="col-sm-8"><h2><b>{{selectedEmployee.employee_name}}</b></h2></div>
+          
+      </div>
+  </div>
+  <form [formGroup]='imageForm'>
+      <div style="margin-left: 350px">
+        <img src="http://localhost:3000/{{selectedEmployee?.employee_img}}" style="border-radius: 40%;height: 100px; width: 100px;"  *ngIf="!imgURL">
+        <br>
+        <!-- <input class="input-control" #file type="file" name="profile_image" accept="image/*" (change)="preview(file.files);onFileSelected($event)" [(ngModel)]="selectedEmployee.employee_img" formControlName='image'> -->
+        <img [src]="imgURL" height="200" *ngIf="imgURL" style="border-radius: 40%;height: 100px; width: 100px;"><br>
+        <input class="input-control" #file type="file" name="profile_image" accept="image/*" (change)="preview(file.files);onFileSelected($event)" formControlName='image'>
+      </div>
+  </form>
+  <br>
+  <form #employeeUpdateForm="ngForm">
+    <table class="table">
+      <tbody>
+        <tr>
+          <th>Employee Id</th>
+          <td>{{selectedEmployee.employee_no}}</td>
+        </tr>
+        <tr>
+          <th>NIC Number</th>
+          <td>{{selectedEmployee.nic_no }}</td>
+          
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td><textarea  name="address" [(ngModel)]="selectedEmployee.address"></textarea></td>
+          </tr>
+          <tr>
+              <th>Date of Birth</th>
+              <td>{{selectedEmployee.birthdate}}</td>
+              <th>Gender</th>
+              <td>{{selectedEmployee.gender}}</td>
+            </tr>
+            <br>
+            <tr>
+                <th scope="row">Contact Number</th>
+                <td><input type="text"  name="tp_no" pattern="^\d{10}$" [(ngModel)]="selectedEmployee.tp_no" #tp_no="ngModel"  [class.is-invalid]="tp_no.invalid"> </td>
+                    <td><small class="text-danger" [class.d-none]="tp_no.valid"> *Contact number should contain 10 digits</small></td>
+              <th scope="row">Email Address</th>
+              <td><textarea  name="email_adress" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="selectedEmployee.email_adress"  #email_adress="ngModel"  [class.is-invalid]="email_adress.invalid" required></textarea></td>
+                    <td><small class="text-danger" [class.d-none]="email_adress.valid"> *Valid email addresss id required</small></td>  
+              </tr>
+              <tr>
+                  <th scope="row">Employee Type</th>
+                <td><select class="emp-select"  #employee_type="ngModel" name="employee_type" [(ngModel)]="selectedEmployee.employee_type" required [class.is-invalid]="employee_type.invalid">
+                  <option value="Manager">Manager</option>
+                  <option value="Executive">Executive</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Cashier"></option>
+                </select>
+                </td>
+                <td><small class="text-danger" [class.d-none]="employee_type.valid"> *Employee type should be selected</small></td>
+              
+                <div *ngIf="selectedEmployee.employee_type=='Executive'">
+                <th scope="row">Bike Number</th>
+                    <td><input type="text" name="bike_no" [(ngModel)]="selectedExecutive.bike_no" required #bike_no="ngModel"  [class.is-invalid]="bike_no.invalid"> </td>
+                    <td><small class="text-danger" [class.d-none]="bike_no.valid"> *Bike number should be entered</small></td>
+                </div>
+                </tr>
+                
+                <tr>
+                <th scope="row">EPF Number</th>
+                
+                <td><input type="text"  name="epf_no" [(ngModel)]="selectedEmployee.epf_no" required #epf_no="ngModel"  [class.is-invalid]="epf_no.invalid"> </td>
+                <td><small class="text-danger" [class.d-none]="epf_no.valid"> *EPF number should be entered</small></td>
+                
+                <th scope="row">ETF Number</th>
+                <td><input type="text"  name="etf_no" [(ngModel)]="selectedEmployee.etf_no" required #etf_no="ngModel"  [class.is-invalid]="etf_no.invalid"> </td>
+                <td><small class="text-danger" [class.d-none]="etf_no.valid"> *ETF number should be entered</small></td>
+                </tr>
+
+                <tr> 
+                    <th scope="row" (click)="changepwd()"  *ngIf="selectedEmployee.employee_type=='Executive'" style="color:rgb(82, 100, 216); margin-bottom: 10px; text-decoration: underline; font-weight: bold;">Change the password</th>
+                </tr>
+              </tbody>
+            </table>
+                    <table class="table" *ngIf="pwdChange">
+                        <tbody>
+                              
+                            <tr>
+                                <th scope="row">Current Password</th>
+                                <td><input type="password"  name="e_password" [(ngModel)]="selectedEmployee.e_password" ></td> 
+                                
+                              </tr>
+                
+                            <tr>
+                            <th scope="row">New Password</th>
+                            <td><input type="password"  name="new_password" [(ngModel)]="sendingData.new_password"  pattern='(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}'  required #new_password="ngModel"  [class.is-invalid]="new_password.invalid&&new_password.touched" ></td> 
+                            <td><small class="text-danger" [class.d-none]="new_password.valid||new_password.untouched"> *ETF number should be enteredMore than 8 characters with numbers, upper case letters,lowercase letters,special characters required</small></td>
+
+
+                            <th scope="row">New Password Confirmation</th>
+                          
+                            <td><input type="password"  name="confirmation" [(ngModel)]="confirm" > 
+                            <small class="text-danger" *ngIf="(confirm!=sendingData.new_password)&&(confirm!=null)"> *Does not match with the password</small>
+                          </td>
+                          
+                            
+                          </tr>
+                          <tr>
+                            
+                            <th scope="row">New Password Hint</th>
+                             <td><input type="text"  name="new_hint" [(ngModel)]="sendingData.new_hint" ></td>
+                           
+                          </tr>
+                        </tbody>
+                      </table>
+                
+                
+      
+    <div class="modal-footer">
+      <button  class="btn btn-success" [disabled]="employeeUpdateForm.form.invalid" (click)="update()">Update</button>
+      <button type="button" class="btn btn-dark" (click)="reloadComponent()">Back</button>
+    </div>
+  </form>
+</div>
+
+<div class="table-wrapper" *ngIf="view">
+  <div class="table-title">
+      <div class="row">
+          <div class="col-sm-8"><h2><b>{{selectedEmployee.employee_name}}</b></h2></div>
+          
+      </div>
+  </div>
+<div style="text-align: center">
+<img src="http://localhost:3000/{{selectedEmployee?.employee_img}}" style="border-radius: 40%;height: 100px; width: 100px;">
+</div>
+<br>
+<table class="table">
+    <tbody>
+      <tr>
+        <th>Employee Id</th>
+        <td>{{selectedEmployee.employee_no}}</td>
+      </tr>
+      <tr>
+        <th>NIC Number</th>
+        <td>{{selectedEmployee.nic_no }}</td>
+        
+      </tr>
+      <tr>
+          <th>Address</th>
+          <td>{{selectedEmployee.address}}</td>
+        </tr>
+        <tr>
+            <th>Date of Birth</th>
+            <td>{{selectedEmployee.birthdate}}</td>
+            <th>Gender</th>
+            <td>{{selectedEmployee.gender}}</td>
+          </tr>
+          <br>
+          <tr>
+              <th scope="row">Contact Number</th>
+              <td>{{selectedEmployee.tp_no}} </td>
+             <th scope="row">Email Address</th>
+              <td>{{selectedEmployee.email_adress}} </td>
+              
+            </tr>
+            <tr>
+                <th scope="row">Employee Type</th>
+               <td>{{selectedEmployee.employee_type}}</td>
+              <div *ngIf="selectedEmployee.employee_type=='Executive'">
+               <th scope="row">Bike Number</th>
+               <td>{{selectedExecutive.bike_no}}</td>
+              </div>
+              </tr>
+              
+              <tr>
+               <th scope="row">EPF Number</th>
+               <td>{{selectedEmployee.epf_no}} </td>
+               <th scope="row">ETF Number</th>
+                <td>{{selectedEmployee.etf_no}}</td>
+              
+               </tr>
+               
+    </tbody>
+  </table>
+<div class="modal-footer">
+   
+    <button type="button" class="btn btn-dark" (click)="reloadComponent()">close</button>
+   
+
+  </div>
+
+</div>
+</div>

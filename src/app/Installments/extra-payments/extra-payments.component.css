@@ -1,0 +1,64 @@
+
+.table {
+    margin-top: 50px;
+}
+.btn {
+    margin-left: 5px;
+}
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+.saveBtn, .imageSave {
+    width: 40px;
+    height: 40px;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.imageSave, .imageCancel {
+    display: inline-block;
+}
+
+.cancelBtn {
+    border: 1px solid green;
+    width: 35px;
+    height: 35px;
+    margin: 0;
+    padding: 0;
+    margin-top: 2px;
+    margin-left: 6px;
+    background-color: #E1FAE0;
+}
+
+.imageCancel {
+    width: 35px;
+    margin-left: 6px;
+    margin-top: 2px;
+    height: 35px;
+    margin: 0;
+    padding: 0;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-class {
+    width: 115px;
+}           
+
+
+

@@ -1,0 +1,43 @@
+.login {
+    height: 95%;
+    min-height: 500px;
+    max-height: 600px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+.loginForm {
+    background-color: bisque;
+    margin-top: 10%;
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-bottom: 10%;
+    overflow: hidden;
+    opacity: 0.8;
+}
+
+.d-block{
+    width:200px;
+  height:730px;
+ 
+
+}
+
+.carousel-inner .carousel-item {
+    transition: -webkit-transform 1s ease;
+    transition: transform 1s ease;
+    transition: transform 1s ease, -webkit-transform 1s ease;
+  
+  }
+
+.container{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+body{
+  position: fixed;
+  height: 1000px;
+  width: 100%;
+}

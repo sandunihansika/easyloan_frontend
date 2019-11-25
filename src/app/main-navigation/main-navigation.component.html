@@ -1,0 +1,228 @@
+<!-- <mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)">
+  <section class="container mt-4 mb-4">
+      <div class="container">
+          <div class="col-md-1"> 
+              <img src="http://localhost:3000/{{details?.employee_img}}"   style="height: 100px; width: 100px;  border-radius: 50%; overflow: hidden; "  class="img1">
+            
+          </div>
+       <br><br><br><br><br>
+          <div class="col-md-2">
+            <div class="d-flex flex-row rounded">
+                
+                <div class="pl-2 pt-1 pr-1 pb-1 w-100">
+                  <h4 class="text-light" style="text-decoration: underline"><a href="nav/user-profile">{{details?.employee_name}}</a></h4>
+                  <h5 style="color: burlywood">{{details?.employee_type}}</h5>
+                    
+          
+            </div>
+          </div>
+         
+        </div>
+      
+      </div>
+      </section>
+    <mat-nav-list>
+        <ul class="list-unstyled component"> 
+          <li>
+              <a href="#RegistrationSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">People</a>
+              <ul class="collapse list-unstyled" id="RegistrationSubmenu">
+                <li>
+            
+                    <a href="nav/employee">Employee</a>
+                </li>
+                <li>
+                    <a href="nav/customer">Customer</a>
+                  </li>
+    
+              </ul>
+          </li>
+
+          <li *ngIf="details.employee_type=='Admin'">
+              <a href="#CenterSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Center</a>
+              <ul class="collapse list-unstyled" id="CenterSubmenu">
+                <li>
+                 <a href="nav/create-center">Center Registration</a>
+                </li>
+                <li>
+                  <a href="nav/edit-center">Edit Center Details</a>
+                 </li>
+                 <li>
+                  <a href="/nav/assign-group">Assign Groups</a>
+                 </li>        
+              </ul>
+          </li>
+       <li>
+          <a href="#LoanSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Loan</a>
+          <ul class="collapse list-unstyled" id="LoanSubmenu">
+            <li *ngIf="details.employee_type=='Admin'">
+                <a href="/nav/loan-enter">Enter Loan</a>
+            </li>
+            
+              <li>
+                  <a href="/nav/applied-loans">Loan Approval</a>
+                </li>
+
+                <li>
+                  <a href="/nav/approved-loans">Loan Authorize</a>
+                </li>
+                <li>
+                  <a href="/nav/authorized-loans">Loan Disburse </a>
+                </li>
+                
+          </ul>
+       </li>
+          <li>
+              <a href="/nav/report">Reports</a>
+              </li>
+        </ul>
+        
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span><h2>EASY LOAN </h2>
+        <h6 >Micro Finance Transaction and Management System</h6>
+      </span>
+    <span class="spacer"></span>
+      <div class="nav-btn" aria-hidden="false">
+             
+          <div class="col-sm-3">
+              <button class="previous round"  (click)="back()"><i class="fas fa-arrow-circle-left"></i></button>
+            </div>
+            <div class="col-sm-3">
+              <button class="previous round" (click)="home()"><i class="fas fa-home"></i></button>
+            </div>
+            <div class="col-sm-3">
+              <button class="previous round" (click)="logOut()"><i class="fas fa-power-off"></i></button>
+            </div>
+        
+        </div>
+  
+    </mat-toolbar>
+ 
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+ -->
+ <div id="wrapper">
+     <!-- Navigation -->
+     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        
+         <div class="header">
+            <h2><b>EASY LOAN</b> </h2>
+            <h6 >Micro Finance Transaction and Management System</h6>
+         </div>
+    
+         <ul class="nav navbar-right top-nav">
+            <div class="nav-btn" aria-hidden="false">
+             
+                <div class="col-sm-3">
+                    <button class="previous round"  (click)="back()"><i class="fas fa-arrow-circle-left fa-2x"></i></button>
+                  </div>
+                  <div class="col-sm-3">
+                    <button class="previous round" (click)="home()"><i class="fas fa-home fa-2x"></i></button>
+                  </div>
+                  <div class="col-sm-3">
+                    <button class="previous round" (click)="logOut()"><i class="fas fa-power-off fa-2x"></i></button>
+                  </div>
+              
+              </div>
+         </ul>
+         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+         <div class="collapse navbar-collapse navbar-ex1-collapse">
+           
+             <ul class="nav navbar-nav side-nav">
+                <li>
+                  <ul>
+                      <div> 
+                          <img src="http://localhost:3000/{{details?.employee_img}}"   class="img1">
+                        
+                      </div>
+                  </ul>
+                  <ul style="margin-left: 15px">
+                      <h4 style="text-decoration: underline; color: white" (click)="profile()">{{details?.employee_name}}</h4>
+                      <h5 style="color: burlywood">{{details?.employee_type}}</h5>
+                  </ul>
+                    
+                 </li>
+                  <br><br>
+                 <li *ngIf="details.employee_type!='Cashier'" >
+                     <a data-toggle="collapse" data-target="#people"><i class="fas fa-users"></i> People<i class="fa fa-fw fa-angle-down pull-right"></i></a>
+                     <ul id="people" class="collapse">
+                        <li><a href="/nav/employee"><i class="fa fa-angle-double-right"></i> Employee</a></li>
+                        <li><a href="/nav/customer"><i class="fa fa-angle-double-right"></i> Customer</a></li>
+                     </ul>
+                 </li>
+                 <li *ngIf="details.employee_type=='Admin'">
+                     <a data-toggle="collapse" data-target="#center"><i class="fas fa-map-marker-alt"></i>  Center Management <i class="fa fa-fw fa-angle-down pull-right"></i></a>
+                     <ul id="center" class="collapse">
+                        <li><a href="/nav/create-center"><i class="fa fa-angle-double-right"></i> Center Registration</a></li>
+                        <li><a href="/nav/edit-center"><i class="fa fa-angle-double-right"></i> Edit Center Details</a></li>
+                        <li><a href="/nav/assign-group"><i class="fa fa-angle-double-right"></i> Assign Groups</a></li>     
+                        
+                     </ul>
+                 </li>
+                 <li>
+                    <a data-toggle="collapse" data-target="#loans"><i class="fas fa-money-bill-wave"></i> Loans <i class="fa fa-fw fa-angle-down pull-right"></i></a>
+                    <ul id="loans" class="collapse">
+                       <li *ngIf="details.employee_type=='Admin'"><a href="/nav/loan-enter"><i class="fa fa-angle-double-right"></i> Enter New Loan</a></li>
+                       <li><a href="/nav/applied-loans"><i class="fa fa-angle-double-right"></i> Loan Approval</a></li>
+                       <li  *ngIf="details.employee_type!='Admin'"><a href="/nav/approved-loans"><i class="fa fa-angle-double-right"></i> Loan Authorization</a></li>
+                       <li  *ngIf="details.employee_type!='Admin'"><a href="/nav/authorized-loans"><i class="fa fa-angle-double-right"></i> Loan Disbursment</a></li>     
+                       
+                    </ul>
+                </li>
+               <li *ngIf="details.employee_type=='Cashier'">
+                  <a data-toggle="collapse" data-target="#inst"><i class="fas fa-dollar-sign"></i> Installments <i class="fa fa-fw fa-angle-down pull-right"></i></a>
+                  <ul id="inst" class="collapse">
+                  <li><a href="/nav/re-payment"><i class="fa fa-angle-double-right"></i>  Re Payments</a></li>
+                  <li><a href="/nav/extra-payment"><i class="fa fa-angle-double-right"></i>  Extra Payments</a> </li>
+                  </ul>
+                  
+              </li>
+              <!-- <li *ngIf="details.employee_type=='Cashier'">
+              <a href="/nav/bulk"><i class="fas fa-hand-holding-usd"></i> Add Daily Bulk</a>
+             </li> -->
+             <li>
+                <a href="/nav/report"><i class="fas fa-file-contract"></i> Reports</a>
+           </li>
+             </ul>
+         </div>
+         <!-- /.navbar-collapse -->
+     </nav>
+     <div id="page-wrapper">
+        
+            <router-outlet></router-outlet>
+    
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+     
+ 
+    </div><!-- /#wrapper -->
+    
+
+ <script>
+ $(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+    $(".side-nav .collapse").on("hide.bs.collapse", function() {                   
+        $(this).prev().find(".fa").eq(1).removeClass("fa-angle-right").addClass("fa-angle-down");
+    });
+    $('.side-nav .collapse').on("show.bs.collapse", function() {                        
+        $(this).prev().find(".fa").eq(1).removeClass("fa-angle-down").addClass("fa-angle-right");        
+    });
+})    
+    
+ </script>

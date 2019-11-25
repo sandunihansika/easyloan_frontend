@@ -1,0 +1,25 @@
+
+
+  .container{
+    align-content: center;
+    height: 600px;
+    padding-left:180px;
+    width: 800x;
+    position: relative;
+    overflow-x:auto;
+    margin-top: 200px;
+  } 
+  
+  .ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948; /* green */
+  }
+  
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+  }
+  .wrapper {
+    align-content: center;
+    padding-left: 100px;
+    margin: 40px 0;
+    margin-top: 60px;
+  }

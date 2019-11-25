@@ -1,0 +1,102 @@
+<div class="container">
+    <div class="top-Section">
+        <div class="header">
+            <h2>Repayment</h2>
+        </div>
+
+        <form class="form-inline" [formGroup]="filter">
+            <div class="form-group row col-md-4">
+                <!-- </div> -->
+                <!-- <div class="col-md-4 mb-3"> -->
+                        <label for="center" class="col-sm-2 col-form-label">Center</label>
+                        <div class="col-sm-5">
+                            <select class="custom-select my-1 mr-sm-2" id="center" [(ngModel)]='center' (change) = "onChange()" formControlName="center">
+                                <option [value]='' selected disabled>Select</option>
+                                <option *ngFor="let cent of centers" [ngValue]="cent">{{cent}}</option>
+                            </select>
+                        </div>
+                <!-- </div> -->
+                
+            </div>
+            <div class="form-group row col-md-4">
+                <!-- <div class="col-md-4 mb-3"> -->
+                        <label for="date" class="col-sm-2 col-form-label">Date</label>
+                        <div class="col-sm-10">
+                            <div class='input-group date' id='datetimepicker1'>
+                                <input type='date' class="form-control" formControlName="date" (change) = "onDateChange()" [value]="date"/>
+                            </div>
+
+                        </div>
+            </div>
+            
+        </form>
+    </div>
+    <div class="bottomSection">
+        <form [formGroup]="paymentForm">
+          <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Installment Number</th>
+                  <th scope="col">Loan ID</th>
+                  <th scope="col">Member ID</th>
+                  <th scope="col">Member Name</th>
+                  <th scope="col">Total Amount</th>
+                  <th scope="col">Installment Amount</th>
+                  <th scope="col">Payment State</th>
+                  <th scope="col">Balance</th>
+                  <th scope="col">Payment</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody *ngIf="filteredTableData.length <= 0 && !filterNullable">
+
+                    <tr *ngFor="let data of tableData; let i=index;" >
+                        <td>{{data.payment?.payment_id}}</td>
+                        <td>{{data.loan_no}}</td>
+                        <td>{{data.customer_id}}</td>
+                        <td>{{data.customer?.customer_name}}</td>
+                        <td>{{data.loan_type?.amount.toFixed(2)}}</td>
+                        <td>{{data.loan_type?.due_amount.toFixed(2)}}</td>
+                        <td>{{data.installments[0]?.payment_status}}</td>
+                        <td>{{(data.loan_type?.initial_fees - data.installments[0]?.total_amount).toFixed(2)}}</td>  
+                        <td>
+                            <div>
+                            <input type="number"  formControlName="paidAmountCon" [(ngModel)]="myData[i]" placeholder="xxxxxxxxx.xx">
+                            </div>
+                        </td>
+                        <div class="btn float-right btn-class" >
+                            <button type="button" class="btn btn-md saveBtn  d-inline" (click)="onSave(data.loan_no, myData[i], data.loan_type?.initial_fees - data.installments[0]?.total_amount)" >
+                                <img class="imageSave" src="../../../assets/icons8-office-160.png" alt="save">
+                            </button>
+                            <button type="button"  class="btn btn-md cancelBtn  d-inline" (click)=" myData[i] = ''" >
+                                <img class="imageCancel" src="../../../assets/icons8-reset-48.png" alt="reset">
+                            </button>
+                        </div>
+                    </tr>
+              </tbody>
+
+              <tbody *ngIf="filteredTableData.length > 0 || filterNullable">
+                      <tr *ngFor="let data of filteredTableData; let i=index;">
+                        <td>{{data.payment?.payment_id}}</td>
+                        <td>{{data.loan_no}}</td>
+                        <td>{{data.customer_id}}</td>
+                        <td>{{data.customer?.customer_name}}</td>
+                        <td>{{data.loan_type?.amount.toFixed(2)}}</td>
+                        <td>{{data.loan_type?.due_amount.toFixed(2)}}</td>
+                        <td>{{data.installments[0]?.payment_status}}</td>
+                        <td>{{(data.loan_type?.initial_fees - data.installments[data.installments.length - 1]?.total_amount).toFixed(2)}}</td>
+                        <td><input type="number" formControlName="paidAmountCon" [(ngModel)]="myData[i]" placeholder="xxxxxxxxx.xx"></td>
+                        <div class="btn float-right btn-class" >
+                            <button type="button" class="btn btn-md saveBtn  d-inline" (click)="onSave(data.loan_no, myData[i], data.loan_type?.initial_fees - data.installments[0]?.total_amount)" >
+                                <img class="imageSave" src="../../../assets/icons8-office-160.png" alt="save">
+                            </button>
+                            <button type="button"  class="btn btn-md cancelBtn  d-inline" (click)=" myData[i] = ''" >
+                                <img class="imageCancel" src="../../../assets/icons8-reset-48.png" alt="reset">
+                            </button>
+                        </div>
+                      </tr>
+                </tbody>
+            </table>
+          </form>
+    </div>    
+</div>
